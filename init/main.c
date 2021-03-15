@@ -823,7 +823,7 @@ void __init __weak arch_call_rest_init(void)
 	rest_init();
 }
 
-asmlinkage __visible void __init start_kernel(void)
+asmlinkage __visible void __init start_kernel(void) //here
 {
 	char *command_line;
 	char *after_dashes;
@@ -835,15 +835,15 @@ asmlinkage __visible void __init start_kernel(void)
 	cgroup_init_early();
 
 	local_irq_disable();
-	early_boot_irqs_disabled = true;
+	early_boot_irqs_disabled = true; //关闭中断请求,防止初始化被打断
 
 	/*
 	 * Interrupts are still disabled. Do necessary setups, then
 	 * enable them.
 	 */
 	boot_cpu_init();
-	page_address_init();
-	pr_notice("%s", linux_banner);
+	page_address_init();               //页地址初始化
+	pr_notice("%s", linux_banner);     //显示内核信息
 	early_security_init();
 	setup_arch(&command_line);
 	setup_boot_config(command_line);
@@ -854,7 +854,7 @@ asmlinkage __visible void __init start_kernel(void)
 	boot_cpu_hotplug_init();
 
 	build_all_zonelists(NULL);
-	page_alloc_init();
+	page_alloc_init();                //页alloc初始化
 
 	pr_notice("Kernel command line: %s\n", saved_command_line);
 	/* parameters may set static keys */
