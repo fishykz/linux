@@ -823,7 +823,7 @@ void __init __weak arch_call_rest_init(void)
 	rest_init();
 }
 
-asmlinkage __visible void __init start_kernel(void) //here
+asmlinkage __visible void __init start_kernel(void) //here 
 {
 	char *command_line;
 	char *after_dashes;
@@ -891,12 +891,12 @@ asmlinkage __visible void __init start_kernel(void) //here
 	 * timer interrupt). Full topology setup happens at smp_init()
 	 * time - but meanwhile we still have a functioning scheduler.
 	 */
-	sched_init();
+	sched_init(); //init调度器
 	/*
 	 * Disable preemption - early bootup scheduling is extremely
 	 * fragile until we cpu_idle() for the first time.
 	 */
-	preempt_disable();
+	preempt_disable(); //停止中断
 	if (WARN(!irqs_disabled(),
 		 "Interrupts were enabled *very* early, fixing it\n"))
 		local_irq_disable();
@@ -963,7 +963,7 @@ asmlinkage __visible void __init start_kernel(void) //here
 	 * we've done PCI setups etc, and console_init() must be aware of
 	 * this. But we do want output early, in case something goes wrong.
 	 */
-	console_init();
+	console_init(); //初始化console,可以使用printfk打印了
 	if (panic_later)
 		panic("Too many boot %s vars at `%s'", panic_later,
 		      panic_param);
